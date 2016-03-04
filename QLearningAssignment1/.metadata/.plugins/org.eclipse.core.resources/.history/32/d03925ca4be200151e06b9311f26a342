@@ -49,7 +49,7 @@ public class Qlearning {
     final int stateP = 15;
     */
  
-    final int statesCount = 1600;
+    final int statesCount = 16;
     
     int goalState;
     
@@ -92,19 +92,16 @@ public class Qlearning {
  */
  
  
-    String[] stateNames;
+    String[] stateNames = new String[] { "A", "B", "C", "D",
+    									"E", "F", "G", "H", 
+    									"I", "J", "K", "L",
+    									"M", "N", "O", "P"};
  
     public Qlearning() {
         init();
     }
  
-    public void init() {
-    	
-    	stateNames = new String[statesCount];
-    	for(int i = 0; i < statesCount; i++){
-    		stateNames[i] = "" +i;
-    	}
-    	
+    public void init() {       
     	goalState = m_random.nextInt(statesCount);
     	actions = new int[statesCount][];
     	for(int i = 0; i < statesCount; i++){
@@ -162,9 +159,6 @@ public class Qlearning {
         // For each episode
         Random rand = new Random();
         for (int i = 0; i < 1000; i++) { // train episodes
-        	
-        	//TODO: implement epsilon value
-        	
             // Select random initial state
             int state = rand.nextInt(statesCount);
             while (state != goalState) // goal state
