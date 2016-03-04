@@ -58,22 +58,22 @@ public class Qlearning {
     double[][] Q = new double[statesCount][statesCount]; // Q learning
  
     //TODO
-    int[] actionsFromA = new int[] { stateB, stateE };
-    int[] actionsFromB = new int[] { stateA, stateC, stateF };
-    int[] actionsFromC = new int[] { stateB, stateD, stateG };
-    int[] actionsFromD = new int[] { stateC };
-    int[] actionsFromE = new int[] { stateA, stateF, stateI };
-    int[] actionsFromF = new int[] { stateB, stateE, stateG};
-    int[] actionsFromG = new int[] { stateC, stateF, stateK};
-    int[] actionsFromH = new int[] { };
-    int[] actionsFromI = new int[] { stateE, stateM};
-    int[] actionsFromJ = new int[] { };
-    int[] actionsFromK = new int[] { stateG, stateL, stateO };
-    int[] actionsFromL = new int[] { stateK, stateP };
-    int[] actionsFromM = new int[] { stateI, stateN };
-    int[] actionsFromN = new int[] { stateM, stateO };
-    int[] actionsFromO = new int[] { stateK, stateN, stateP };
-    int[] actionsFromP = new int[] { stateO, stateL };
+    int[] actionsFromA = new int[] { stateB, stateD };
+    int[] actionsFromB = new int[] { stateA, stateC, stateE };
+    int[] actionsFromC = new int[] { stateC };
+    int[] actionsFromD = new int[] { stateA, stateE };
+    int[] actionsFromE = new int[] { stateB, stateD, stateF };
+    int[] actionsFromF = new int[] { stateC, stateE };
+    int[] actionsFromG = new int[] { stateC, stateE };
+    int[] actionsFromH = new int[] { stateC, stateE };
+    int[] actionsFromI = new int[] { stateC, stateE };
+    int[] actionsFromJ = new int[] { stateC, stateE };
+    int[] actionsFromK = new int[] { stateC, stateE };
+    int[] actionsFromL = new int[] { stateC, stateE };
+    int[] actionsFromM = new int[] { stateC, stateE };
+    int[] actionsFromN = new int[] { stateC, stateE };
+    int[] actionsFromO = new int[] { stateC, stateE };
+    int[] actionsFromP = new int[] { stateC, stateE };
     
     
     
@@ -131,30 +131,24 @@ public class Qlearning {
                 // Select one among all possible actions for the current state
                 int[] actionsFromState = actions[state];
                  
-                if(actionsFromState.length > 0)
-                {
-	                // Selection strategy is random in this example
-	                int index = rand.nextInt(actionsFromState.length);
-	                int action = actionsFromState[index];
-	 
-	                // Action outcome is set to deterministic in this example
-	                // Transition probability is 1
-	                int nextState = action; // data structure
-	 
-	                // Using this possible action, consider to go to the next state
-	                double q = Q(state, action);
-	                double maxQ = maxQ(nextState);
-	                int r = R(state, action);
-	 
-	                double value = q + alpha * (r + gamma * maxQ - q);
-	                setQ(state, action, value);
-	 
-	                // Set the next state as the current state
-	                state = nextState;
-                }
-                else{
-                	state = rand.nextInt(statesCount);
-                }
+                // Selection strategy is random in this example
+                int index = rand.nextInt(actionsFromState.length);
+                int action = actionsFromState[index];
+ 
+                // Action outcome is set to deterministic in this example
+                // Transition probability is 1
+                int nextState = action; // data structure
+ 
+                // Using this possible action, consider to go to the next state
+                double q = Q(state, action);
+                double maxQ = maxQ(nextState);
+                int r = R(state, action);
+ 
+                double value = q + alpha * (r + gamma * maxQ - q);
+                setQ(state, action, value);
+ 
+                // Set the next state as the current state
+                state = nextState;
             }
         }
     }

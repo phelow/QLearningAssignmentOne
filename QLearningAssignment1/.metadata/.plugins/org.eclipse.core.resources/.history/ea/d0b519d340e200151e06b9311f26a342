@@ -131,30 +131,24 @@ public class Qlearning {
                 // Select one among all possible actions for the current state
                 int[] actionsFromState = actions[state];
                  
-                if(actionsFromState.length > 0)
-                {
-	                // Selection strategy is random in this example
-	                int index = rand.nextInt(actionsFromState.length);
-	                int action = actionsFromState[index];
-	 
-	                // Action outcome is set to deterministic in this example
-	                // Transition probability is 1
-	                int nextState = action; // data structure
-	 
-	                // Using this possible action, consider to go to the next state
-	                double q = Q(state, action);
-	                double maxQ = maxQ(nextState);
-	                int r = R(state, action);
-	 
-	                double value = q + alpha * (r + gamma * maxQ - q);
-	                setQ(state, action, value);
-	 
-	                // Set the next state as the current state
-	                state = nextState;
-                }
-                else{
-                	state = rand.nextInt(statesCount);
-                }
+                // Selection strategy is random in this example
+                int index = rand.nextInt(actionsFromState.length);
+                int action = actionsFromState[index];
+ 
+                // Action outcome is set to deterministic in this example
+                // Transition probability is 1
+                int nextState = action; // data structure
+ 
+                // Using this possible action, consider to go to the next state
+                double q = Q(state, action);
+                double maxQ = maxQ(nextState);
+                int r = R(state, action);
+ 
+                double value = q + alpha * (r + gamma * maxQ - q);
+                setQ(state, action, value);
+ 
+                // Set the next state as the current state
+                state = nextState;
             }
         }
     }

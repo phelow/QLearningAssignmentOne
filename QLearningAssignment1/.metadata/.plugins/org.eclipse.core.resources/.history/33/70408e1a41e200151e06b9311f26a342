@@ -152,9 +152,6 @@ public class Qlearning {
 	                // Set the next state as the current state
 	                state = nextState;
                 }
-                else{
-                	state = rand.nextInt(statesCount);
-                }
             }
         }
     }
