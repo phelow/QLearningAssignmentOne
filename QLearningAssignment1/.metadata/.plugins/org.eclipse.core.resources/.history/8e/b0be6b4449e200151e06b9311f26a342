@@ -54,7 +54,7 @@ public class Qlearning {
     int goalState;
     
     final int[] states = new int[statesCount];
-    int[][] actions;
+ 
    
     
     // http://en.wikipedia.org/wiki/Q-learning
@@ -102,11 +102,11 @@ public class Qlearning {
     }
  
     public void init() {       
-    	goalState = m_random.nextInt(statesCount);
-    	actions = new int[statesCount][];
+    	int goal = m_random.nextInt(statesCount);
+    	int[][] actions = new int[statesCount][];
     	for(int i = 0; i < statesCount; i++){
     		int [] actionsForLayer;
-    		if(i != goalState){
+    		if(i != goal){
     		
     			int numConnections = m_random.nextInt(statesCount);
     			actionsForLayer = new int[numConnections];
@@ -114,8 +114,8 @@ public class Qlearning {
     			for(int j = 0; j < actionsForLayer.length; j++){
     				int nextRand = m_random.nextInt(statesCount);
     			
-    				if(nextRand == goalState){
-    					R[i][goalState] = 100;
+    				if(nextRand == goal){
+    					R[i][goal] = 100;
     				}
     			
     				actionsForLayer[j] = nextRand;
@@ -161,7 +161,7 @@ public class Qlearning {
         for (int i = 0; i < 1000; i++) { // train episodes
             // Select random initial state
             int state = rand.nextInt(statesCount);
-            while (state != goalState) // goal state
+            while (state != stateC) // goal state
             {
                 // Select one among all possible actions for the current state
                 int[] actionsFromState = actions[state];

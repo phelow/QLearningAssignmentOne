@@ -7,8 +7,6 @@ import java.util.Random;
 public class Qlearning {
     final DecimalFormat df = new DecimalFormat("#.##");
  
-    private Random m_random = new Random();
-    
     // path finding
     final double alpha = 0.1;
     final double gamma = 0.9;
@@ -30,7 +28,6 @@ public class Qlearning {
 // |_______|
 //
  
-    /*
     final int stateA = 0;
     final int stateB = 1;
     final int stateC = 2;
@@ -47,16 +44,11 @@ public class Qlearning {
     final int stateN = 13;
     final int stateO = 14;
     final int stateP = 15;
-    */
  
     final int statesCount = 16;
     
-    int goalState;
-    
-    final int[] states = new int[statesCount];
-    int[][] actions;
-   
-    
+    final int[] states = new int[]{stateA,stateB,stateC,stateD,stateE,stateF,stateG,stateH,stateI,stateJ,stateK,stateL,stateM,stateN,stateN,stateO,stateP};
+ 
     // http://en.wikipedia.org/wiki/Q-learning
     // http://people.revoledu.com/kardi/tutorial/ReinforcementLearning/Q-Learning.htm
  
@@ -65,7 +57,7 @@ public class Qlearning {
     int[][] R = new int[statesCount][statesCount]; // reward lookup
     double[][] Q = new double[statesCount][statesCount]; // Q learning
  
-    /*
+    //TODO
     int[] actionsFromA = new int[] { stateB, stateE };
     int[] actionsFromB = new int[] { stateA, stateC, stateF };
     int[] actionsFromC = new int[] { stateB, stateD, stateG };
@@ -89,8 +81,6 @@ public class Qlearning {
     								actionsFromE, actionsFromF, actionsFromG, actionsFromH,
     								actionsFromI, actionsFromJ, actionsFromK, actionsFromL,
     								actionsFromM, actionsFromN, actionsFromO, actionsFromP};
- */
- 
  
     String[] stateNames = new String[] { "A", "B", "C", "D",
     									"E", "F", "G", "H", 
@@ -101,34 +91,9 @@ public class Qlearning {
         init();
     }
  
-    public void init() {       
-    	goalState = m_random.nextInt(statesCount);
-    	actions = new int[statesCount][];
-    	for(int i = 0; i < statesCount; i++){
-    		int [] actionsForLayer;
-    		if(i != goalState){
-    		
-    			int numConnections = m_random.nextInt(statesCount);
-    			actionsForLayer = new int[numConnections];
-    		
-    			for(int j = 0; j < actionsForLayer.length; j++){
-    				int nextRand = m_random.nextInt(statesCount);
-    			
-    				if(nextRand == goalState){
-    					R[i][goalState] = 100;
-    				}
-    			
-    				actionsForLayer[j] = nextRand;
-    			}
-    		}
-    		else{
-    			actionsForLayer = new int[0];
-    		}
-    		actions[i] = (actionsForLayer);
-    	} 
-    	
-    	//Randomly generate the graph
-    	
+    public void init() {        
+        R[stateO][stateP] = 100; // from b to c
+        R[stateL][stateP] = 100; // from f to c     
     }
  
     public static void main(String[] args) {
@@ -161,7 +126,7 @@ public class Qlearning {
         for (int i = 0; i < 1000; i++) { // train episodes
             // Select random initial state
             int state = rand.nextInt(statesCount);
-            while (state != goalState) // goal state
+            while (state != stateC) // goal state
             {
                 // Select one among all possible actions for the current state
                 int[] actionsFromState = actions[state];
