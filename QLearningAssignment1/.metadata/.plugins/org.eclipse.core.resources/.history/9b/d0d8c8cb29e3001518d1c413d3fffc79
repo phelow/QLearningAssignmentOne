@@ -108,6 +108,7 @@ public class Qlearning {
     	m_goalStateX = random.nextInt(xWidth);
     	m_goalStateY = random.nextInt(yWidth);
     	actions = new Pair[xWidth][yWidth][];
+    	System.out.println("Initializing");
     	for(int x = 0; x < xWidth; x++){
     		for(int y = 0; y < yWidth; y++){
 
@@ -138,6 +139,8 @@ public class Qlearning {
 					actionsForLayer[pos] = p;
 					if(p.x == m_goalStateX && p.y == m_goalStateY){
 						R[x][y][p.x][p.y] = 100;
+						System.out.println(R[x][y][p.x][p.y]);
+						System.out.println("R has been set: " + x + " " + y + " " + p.x + " " + p.y);
 					}
 					
 					pos++;
@@ -149,6 +152,8 @@ public class Qlearning {
 					actionsForLayer[pos] = p;
 					if(p.x == m_goalStateX && p.y == m_goalStateY){
 						R[x][y][p.x][p.y] = 100;
+						System.out.println(R[x][y][p.x][p.y]);
+						System.out.println("R has been set: " + x + " " + y + " " + p.x + " " + p.y);
 					}
 					
 					pos++;
@@ -161,6 +166,8 @@ public class Qlearning {
 					actionsForLayer[pos] = p;
 					if(p.x == m_goalStateX && p.y == m_goalStateY){
 						R[x][y][p.x][p.y] = 100;
+						System.out.println(R[x][y][p.x][p.y]);
+						System.out.println("R has been set: " + x + " " + y + " " + p.x + " " + p.y);
 					}
 					
 					pos++;
@@ -172,9 +179,15 @@ public class Qlearning {
 					actionsForLayer[pos] = p;
 					if(p.x == m_goalStateX && p.y == m_goalStateY){
 						R[x][y][p.x][p.y] = 100;
+						System.out.println(R[x][y][p.x][p.y]);
+						System.out.println("R has been set: " + x + " " + y + " " + p.x + " " + p.y);
 					}
 					
 					pos++;
+    			}
+    			
+    			for(int i = 0; i < actionsForLayer.length; i++){
+    				System.out.println("Insertion:" + actionsForLayer[i].x + " " + actionsForLayer[i].y);
     			}
     			
     			
@@ -189,10 +202,14 @@ public class Qlearning {
     public static void main(String[] args) {
         long BEGIN = System.currentTimeMillis();
 
+        System.out.println("0");
         Qlearning obj = new Qlearning();
         
+        System.out.println("1");
         obj.run();
+        System.out.println("2");
         obj.printResult();
+        System.out.println("3");
         obj.showPolicy();
  
         long END = System.currentTimeMillis();
@@ -212,6 +229,7 @@ public class Qlearning {
          */
  
         // For each episode
+        System.out.println("Filling");
         
         
         for (int i = 0; i < 1000; i++) { // train episodes
@@ -229,13 +247,19 @@ public class Qlearning {
                 Pair[] actionsFromState = actions[state.x][state.y];
                 if(actionsFromState.length > 0)
                 {
+
+                	System.out.println("state:" + state.x + "" + state.y + "Goal state: " + m_goalStateX + " " + m_goalStateY );
+        			for(int u = 0; u < actionsFromState.length; u++){
+        				System.out.println("Retrieval:" + actionsFromState[u].x + " " + actionsFromState[u].y);
+        			}
                 	
 	                // Selection strategy is random in this example
 	                int index = random.nextInt(actionsFromState.length);
 	                Pair action = actionsFromState[index];
 	 
 	                
-	                 
+	               // System.out.println("state: " + state.x + " " + state.y + " action: " + action.x + " " + action.y);
+	                
 	                // Action outcome is set to deterministic in this example
 	                // Transition probability is 1
 	                Pair nextState = action; // data structure
@@ -248,17 +272,21 @@ public class Qlearning {
 	                
 	                
 	                double value = q + alpha * (r + gamma * maxQ - q);
-	               
+	                if(r != 0){
+	                	System.out.println("NOT ZERO:" + r);
+	                }
 	                setQ(state, action, value);
 	 
 	                // Set the next state as the current state
 	                state = nextState;
                 }
                 else{
-                	state.x = random.nextInt(xWidth);
+                	System.out.println("NO actions from this state we are at position:" + state.x + " " + state.y);
+                    state.x = random.nextInt(xWidth);
                     state.y = random.nextInt(yWidth);
                 }
             }
+            System.out.println("Goal State Reached: " + state.x + " " + state.y);
             
             
         }
@@ -315,6 +343,7 @@ public class Qlearning {
  
     void printResult() {
     	//TODO: redo this function
+        System.out.println("Print result");
         for (int i = 0; i < stateNames.length; i++) {
             for (int j = 0; j < stateNames[i].length; j++) {
                 System.out.print("out from " + stateNames[i][j] + ":  ");

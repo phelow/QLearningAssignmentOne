@@ -255,10 +255,12 @@ public class Qlearning {
 	                state = nextState;
                 }
                 else{
-                	state.x = random.nextInt(xWidth);
+                	System.out.println("NO actions from this state we are at position:" + state.x + " " + state.y);
+                    state.x = random.nextInt(xWidth);
                     state.y = random.nextInt(yWidth);
                 }
             }
+            System.out.println("Goal State Reached: " + state.x + " " + state.y);
             
             
         }
@@ -315,6 +317,7 @@ public class Qlearning {
  
     void printResult() {
     	//TODO: redo this function
+        System.out.println("Print result");
         for (int i = 0; i < stateNames.length; i++) {
             for (int j = 0; j < stateNames[i].length; j++) {
                 System.out.print("out from " + stateNames[i][j] + ":  ");
