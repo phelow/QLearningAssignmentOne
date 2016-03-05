@@ -59,6 +59,8 @@ public class Qlearning {
     
     final int[] states = new int[statesCount];
     int[][] actions;
+   
+    Random random;
     
     
     // http://en.wikipedia.org/wiki/Q-learning

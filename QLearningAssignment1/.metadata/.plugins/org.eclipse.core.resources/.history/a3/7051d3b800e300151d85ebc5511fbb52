@@ -7,7 +7,7 @@ import java.util.Random;
 public class Qlearning {
     final DecimalFormat df = new DecimalFormat("#.##");
  
-    private Random random = new Random();
+    private Random m_random = new Random();
     
     // path finding
     final double alpha = 0.1;
@@ -59,6 +59,8 @@ public class Qlearning {
     
     final int[] states = new int[statesCount];
     int[][] actions;
+   
+    Random random;
     
     
     // http://en.wikipedia.org/wiki/Q-learning
@@ -110,17 +112,17 @@ public class Qlearning {
     		stateNames[i] = "" +i;
     	}
     	
-    	goalState = random.nextInt(statesCount);
+    	goalState = m_random.nextInt(statesCount);
     	actions = new int[statesCount][];
     	for(int i = 0; i < statesCount; i++){
     		int [] actionsForLayer;
     		if(i != goalState){
     		
-    			int numConnections = random.nextInt(statesCount);
+    			int numConnections = m_random.nextInt(statesCount);
     			actionsForLayer = new int[numConnections];
     		
     			for(int j = 0; j < actionsForLayer.length; j++){
-    				int nextRand = random.nextInt(statesCount);
+    				int nextRand = m_random.nextInt(statesCount);
     			
     				if(nextRand == goalState){
     					R[i][goalState] = 100;
@@ -170,7 +172,7 @@ public class Qlearning {
         	//TODO: implement epsilon value
         	
             // Select random initial state
-            int state = random.nextInt(statesCount);
+            int state = rand.nextInt(statesCount);
             while (state != goalState) // goal state
             {
                 // Select one among all possible actions for the current state
@@ -179,7 +181,7 @@ public class Qlearning {
                 if(actionsFromState.length > 0)
                 {
 	                // Selection strategy is random in this example
-	                int index = random.nextInt(actionsFromState.length);
+	                int index = rand.nextInt(actionsFromState.length);
 	                int action = actionsFromState[index];
 	 
 	                // Action outcome is set to deterministic in this example
@@ -198,7 +200,7 @@ public class Qlearning {
 	                state = nextState;
                 }
                 else{
-                	state = random.nextInt(statesCount);
+                	state = rand.nextInt(statesCount);
                 }
             }
         }

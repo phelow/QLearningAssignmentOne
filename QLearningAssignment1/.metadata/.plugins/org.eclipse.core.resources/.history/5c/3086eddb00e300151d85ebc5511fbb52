@@ -7,7 +7,7 @@ import java.util.Random;
 public class Qlearning {
     final DecimalFormat df = new DecimalFormat("#.##");
  
-    private Random random = new Random();
+    private Random m_random = new Random();
     
     // path finding
     final double alpha = 0.1;
@@ -59,6 +59,8 @@ public class Qlearning {
     
     final int[] states = new int[statesCount];
     int[][] actions;
+   
+    Random random;
     
     
     // http://en.wikipedia.org/wiki/Q-learning
@@ -110,17 +112,17 @@ public class Qlearning {
     		stateNames[i] = "" +i;
     	}
     	
-    	goalState = random.nextInt(statesCount);
+    	goalState = m_random.nextInt(statesCount);
     	actions = new int[statesCount][];
     	for(int i = 0; i < statesCount; i++){
     		int [] actionsForLayer;
     		if(i != goalState){
     		
-    			int numConnections = random.nextInt(statesCount);
+    			int numConnections = m_random.nextInt(statesCount);
     			actionsForLayer = new int[numConnections];
     		
     			for(int j = 0; j < actionsForLayer.length; j++){
-    				int nextRand = random.nextInt(statesCount);
+    				int nextRand = m_random.nextInt(statesCount);
     			
     				if(nextRand == goalState){
     					R[i][goalState] = 100;
