@@ -52,10 +52,10 @@ public class Qlearning {
  
     
     //Stored random number seeds
-    final long seedZero = 0;
+    final long seedZero = 3;
     
-    final int xWidth = 10;
-    final int yWidth = 10;
+    final int xWidth = 4;
+    final int yWidth = 4;
     final int statesCount = 100;
     
     final int c_maxAdjacentSides = 4;
@@ -80,33 +80,6 @@ public class Qlearning {
     int[][][][] R = new int[xWidth][yWidth][xWidth][yWidth]; // reward lookup
     double[][][][] Q = new double[xWidth][yWidth][xWidth][yWidth]; // Q learning
  
-    /*
-    int[] actionsFromA = new int[] { stateB, stateE };
-    int[] actionsFromB = new int[] { stateA, stateC, stateF };
-    int[] actionsFromC = new int[] { stateB, stateD, stateG };
-    int[] actionsFromD = new int[] { stateC };
-    int[] actionsFromE = new int[] { stateA, stateF, stateI };
-    int[] actionsFromF = new int[] { stateB, stateE, stateG};
-    int[] actionsFromG = new int[] { stateC, stateF, stateK};
-    int[] actionsFromH = new int[] { };
-    int[] actionsFromI = new int[] { stateE, stateM};
-    int[] actionsFromJ = new int[] { };
-    int[] actionsFromK = new int[] { stateG, stateL, stateO };
-    int[] actionsFromL = new int[] { stateK, stateP };
-    int[] actionsFromM = new int[] { stateI, stateN };
-    int[] actionsFromN = new int[] { stateM, stateO };
-    int[] actionsFromO = new int[] { stateK, stateN, stateP };
-    int[] actionsFromP = new int[] { stateO, stateL };
-    
-    
-    
-    int[][] actions = new int[][] { actionsFromA, actionsFromB, actionsFromC, actionsFromD, 
-    								actionsFromE, actionsFromF, actionsFromG, actionsFromH,
-    								actionsFromI, actionsFromJ, actionsFromK, actionsFromL,
-    								actionsFromM, actionsFromN, actionsFromO, actionsFromP};
- */
- 
- 
     String[][] stateNames;
  
     public Qlearning() {
@@ -123,7 +96,6 @@ public class Qlearning {
     	for(int x = 0; x < xWidth; x++){
     		for(int y = 0; y < yWidth; y++){
     			stateNames[x][y] = x + "," + y;
-    			System.out.println(stateNames[x][y]);
     			for(int i = 0; i < xWidth; i++){
     				for(int j = 0; j < yWidth; j++){
     					Q[x][y][i][j] = 0;
@@ -141,62 +113,87 @@ public class Qlearning {
     		for(int y = 0; y < yWidth; y++){
 
     			int numConnections = 0;
-    			for(int i = x -1; i <= x - 1; i++){
-    				for(int j = y -1; j <= y+1; j++){
-    					if(!(i < 0 || i >= xWidth || j < 0 || j >= yWidth)){
-
-    						numConnections++;
-    					}
-    				}
+    			if(!(y+1 <0 || y+1 >= yWidth)){
+    				numConnections++;
     			}
+    			if(!(x+1 <0 || x+1 >= yWidth)){
+    				numConnections++;
+    			}
+    			
+    			if(!(y-1 <0 || y-1 >= yWidth)){
+    				numConnections++;
+    			}
+    			if(!(x-1 <0 || x-1 >= yWidth)){
+    				numConnections++;
+    			}
+    			
     			
     			actionsForLayer = new Pair[numConnections];
     			
     			int pos = 0;
     			
-    			for(int i = x -1; i <= x - 1; i++){
-    				for(int j = y -1; j <= y+1; j++){
-    					if(!(i < 0 || i >= xWidth || j < 0 || j >= yWidth)){
-    						Pair p = new Pair();
-    						p.x = i;
-    						p.y = j;
-    						actionsForLayer[pos] = p;
-    						if(i == m_goalStateX && j == m_goalStateY){
-    							R[i][j][p.x][p.y] = 100;
-    						}
-    						
-    						pos++;
-    					}
-    				}
+    			if(!(y+1 <0 || y+1 >= yWidth)){
+    				Pair p = new Pair();
+					p.x = x;
+					p.y = y+1;
+					actionsForLayer[pos] = p;
+					if(p.x == m_goalStateX && p.y == m_goalStateY){
+						R[x][y][p.x][p.y] = 100;
+						System.out.println(R[x][y][p.x][p.y]);
+						System.out.println("R has been set: " + x + " " + y + " " + p.x + " " + p.y);
+					}
+					
+					pos++;
     			}
+    			if(!(x+1 <0 || x+1 >= xWidth)){
+    				Pair p = new Pair();
+					p.x = x+1;
+					p.y = y;
+					actionsForLayer[pos] = p;
+					if(p.x == m_goalStateX && p.y == m_goalStateY){
+						R[x][y][p.x][p.y] = 100;
+						System.out.println(R[x][y][p.x][p.y]);
+						System.out.println("R has been set: " + x + " " + y + " " + p.x + " " + p.y);
+					}
+					
+					pos++;
+    			}
+    			
+    			if(!(y-1 <0 || y-1 >= yWidth)){
+    				Pair p = new Pair();
+					p.x = x;
+					p.y = y-1;
+					actionsForLayer[pos] = p;
+					if(p.x == m_goalStateX && p.y == m_goalStateY){
+						R[x][y][p.x][p.y] = 100;
+						System.out.println(R[x][y][p.x][p.y]);
+						System.out.println("R has been set: " + x + " " + y + " " + p.x + " " + p.y);
+					}
+					
+					pos++;
+    			}
+    			if(!(x-1 <0 || x-1 >= xWidth)){
+    				Pair p = new Pair();
+					p.x = x-1;
+					p.y = y;
+					actionsForLayer[pos] = p;
+					if(p.x == m_goalStateX && p.y == m_goalStateY){
+						R[x][y][p.x][p.y] = 100;
+						System.out.println(R[x][y][p.x][p.y]);
+						System.out.println("R has been set: " + x + " " + y + " " + p.x + " " + p.y);
+					}
+					
+					pos++;
+    			}
+    			
+    			for(int i = 0; i < actionsForLayer.length; i++){
+    				System.out.println("Insertion:" + actionsForLayer[i].x + " " + actionsForLayer[i].y);
+    			}
+    			
     			
     			actions[x][y] = actionsForLayer;
     		}
     	}
-    	
-    	/*for(int i = 0; i < statesCount; i++){
-    		int [] actionsForLayer;
-    		if(i != goalState){
-    			
-    			
-    			int numConnections = random.nextInt(statesCount);
-    			actionsForLayer = new int[numConnections];
-    		
-    			for(int j = 0; j < actionsForLayer.length; j++){
-    				int nextRand = random.nextInt(statesCount);
-    			
-    				if(nextRand == goalState){
-    					R[i][goalState] = 100;
-    				}
-    			
-    				actionsForLayer[j] = nextRand;
-    			}
-    		}
-    		else{
-    			actionsForLayer = new int[0];
-    		}
-    		actions[i] = (actionsForLayer);
-    	} */
     	
     	//Randomly generate the graph
     	
@@ -232,6 +229,9 @@ public class Qlearning {
          */
  
         // For each episode
+        System.out.println("Filling");
+        
+        
         for (int i = 0; i < 1000; i++) { // train episodes
         	
         	//TODO: implement epsilon value
@@ -241,52 +241,66 @@ public class Qlearning {
         	
             state.x = random.nextInt(xWidth);
             state.y = random.nextInt(yWidth);
-            while (state.x != m_goalStateX && state.y != m_goalStateY) // goal state
+            while (!(state.x == m_goalStateX && state.y == m_goalStateY)) // goal state
             {
                 // Select one among all possible actions for the current state
                 Pair[] actionsFromState = actions[state.x][state.y];
                 if(actionsFromState.length > 0)
                 {
+
+                	System.out.println("state:" + state.x + "" + state.y + "Goal state: " + m_goalStateX + " " + m_goalStateY );
+        			for(int u = 0; u < actionsFromState.length; u++){
+        				System.out.println("Retrieval:" + actionsFromState[u].x + " " + actionsFromState[u].y);
+        			}
+                	
 	                // Selection strategy is random in this example
 	                int index = random.nextInt(actionsFromState.length);
 	                Pair action = actionsFromState[index];
 	 
+	                
+	               // System.out.println("state: " + state.x + " " + state.y + " action: " + action.x + " " + action.y);
+	                
 	                // Action outcome is set to deterministic in this example
 	                // Transition probability is 1
 	                Pair nextState = action; // data structure
-	                System.out.println(nextState.x + " " + nextState.y);
 	                // Using this possible action, consider to go to the next state
-	                double q = Q(state, action);
+	                double q = Q(state, nextState);
+                	//System.out.println(state.x + " " + state.y + " " + action.x + " " + action.y);
 	                double maxQ = maxQ(nextState);
-	                int r = R(state, action);
-	 
+	                int r = R(state, nextState);
+	                
+	                
+	                
 	                double value = q + alpha * (r + gamma * maxQ - q);
+	                if(r != 0){
+	                	System.out.println("NOT ZERO:" + r);
+	                }
 	                setQ(state, action, value);
 	 
 	                // Set the next state as the current state
 	                state = nextState;
                 }
                 else{
-
+                	System.out.println("NO actions from this state we are at position:" + state.x + " " + state.y);
                     state.x = random.nextInt(xWidth);
                     state.y = random.nextInt(yWidth);
                 }
             }
+            System.out.println("Goal State Reached: " + state.x + " " + state.y);
+            
+            
         }
     }
  
     double maxQ(Pair nextState2) {
-    	System.out.println(nextState2.x + " " + nextState2.y);
         Pair[] actionsFromState = actions[nextState2.x][nextState2.y];
-        System.out.println(actionsFromState.length);
-        for(int i = 0; i < actionsFromState.length; i++){
-        	System.out.println(actionsFromState[i].x + " " + actionsFromState[i].y);
-        }
         
         double maxValue = Double.MIN_VALUE;
+       // System.out.println(actionsFromState.length);
         for (int i = 0; i < actionsFromState.length; i++) {
             Pair nextState = actionsFromState[i];
             double value = 0;
+           // System.out.println(nextState2.x + " " + nextState2.y + " " + nextState.x + " " + nextState.y);
             value = Q[nextState2.x][nextState2.y][nextState.x][nextState.y];
  
             if (value > maxValue)
@@ -313,10 +327,13 @@ public class Qlearning {
     }
  
     double Q(Pair state, Pair action) {
-        return Q[state.x][state.y][action.x][action.y];
+    	return Q[state.x][state.y][action.x][action.y];
+    	
     }
  
     void setQ(Pair s, Pair a, double value) {
+    	//System.out.println("SetQ: " +  Q[s.x][s.y][a.x][a.y] + " " + value);
+    	
         Q[s.x][s.y][a.x][a.y] = value;
     }
  
