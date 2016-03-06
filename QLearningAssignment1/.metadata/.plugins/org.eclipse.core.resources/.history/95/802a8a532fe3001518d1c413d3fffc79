@@ -98,7 +98,7 @@ public class Qlearning {
     		return (highestX - lowestX <= 2 && highestY-lowestY <= 2);
     	}
     	if(newPair.x < 0 || newPair.y < 0 || newPair.x > xWidth || newPair.y > yWidth){
-    		return (highestX - lowestX <= 2 && highestY-lowestY <= 2);
+    		return true;
     	}
     	
     	visited.add(newPair);
@@ -169,7 +169,7 @@ public class Qlearning {
     			newPair.x = x;
     			newPair.y = y;
     			m_disconnectedCells[newPair.x][newPair.y] = true;
-    			if(GapExceeds(newPair,x,y,x,y,empty)){
+    			if(!GapExceeds(newPair,x,y,x,y,empty)){
     				m_disconnectedCells[newPair.x][newPair.y] = false;
     			}
     		}
