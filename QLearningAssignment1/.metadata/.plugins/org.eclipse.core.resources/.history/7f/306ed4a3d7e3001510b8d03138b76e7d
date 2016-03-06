@@ -64,9 +64,8 @@ public class Qlearning {
     //Stored random number seeds
     final long seedZero = 3;
     
-    final int xWidth = 10;
-    final int yWidth = 10;
-    final int blockLimit = 11;
+    final int xWidth = 20;
+    final int yWidth = 20;
     final int statesCount = xWidth * yWidth;
     
     final int c_maxAdjacentSides = 4;
@@ -212,7 +211,7 @@ public class Qlearning {
     		}
     	}
     	
-    	int blocksPlaced = 0;
+    	
     	//Pick the gaps. Gaps can be no more than two blocks by two blocks, no two gaps can be touching
     	for(int x = 0; x < xWidth; x++){
     		for(int y = 0; y < yWidth; y++){
@@ -221,13 +220,10 @@ public class Qlearning {
     			ArrayList<Pair> empty = new ArrayList<Pair>();
     			newPair.x = x;
     			newPair.y = y;
-    			if(random.nextInt(100) > 50 && newPair.x != m_goalStateX && newPair.y != m_goalStateY && blocksPlaced < blockLimit){
-	    			blocksPlaced++;
-    				m_disconnectedCells[newPair.x][newPair.y] = true;
-	    			
+    			if(random.nextInt(100) > 50 && newPair.x != m_goalStateX && newPair.y != m_goalStateY){
+	    			m_disconnectedCells[newPair.x][newPair.y] = true;
 	    			if(!GapExceeds(newPair,x,y,x,y,empty)){
 	    				m_disconnectedCells[newPair.x][newPair.y] = false;
-	    				blocksPlaced--;
 	    			}
     			}
     			

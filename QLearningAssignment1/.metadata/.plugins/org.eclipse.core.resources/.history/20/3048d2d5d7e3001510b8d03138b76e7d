@@ -66,7 +66,7 @@ public class Qlearning {
     
     final int xWidth = 10;
     final int yWidth = 10;
-    final int blockLimit = 11;
+    final int blockLimit = 100;
     final int statesCount = xWidth * yWidth;
     
     final int c_maxAdjacentSides = 4;
@@ -221,13 +221,11 @@ public class Qlearning {
     			ArrayList<Pair> empty = new ArrayList<Pair>();
     			newPair.x = x;
     			newPair.y = y;
-    			if(random.nextInt(100) > 50 && newPair.x != m_goalStateX && newPair.y != m_goalStateY && blocksPlaced < blockLimit){
-	    			blocksPlaced++;
-    				m_disconnectedCells[newPair.x][newPair.y] = true;
+    			if(random.nextInt(100) > 50 && newPair.x != m_goalStateX && newPair.y != m_goalStateY){
+	    			m_disconnectedCells[newPair.x][newPair.y] = true;
 	    			
 	    			if(!GapExceeds(newPair,x,y,x,y,empty)){
 	    				m_disconnectedCells[newPair.x][newPair.y] = false;
-	    				blocksPlaced--;
 	    			}
     			}
     			

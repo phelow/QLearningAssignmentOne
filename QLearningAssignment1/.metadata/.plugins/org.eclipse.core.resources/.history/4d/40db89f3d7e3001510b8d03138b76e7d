@@ -66,7 +66,7 @@ public class Qlearning {
     
     final int xWidth = 10;
     final int yWidth = 10;
-    final int blockLimit = 11;
+    final int blockLimit = 10;
     final int statesCount = xWidth * yWidth;
     
     final int c_maxAdjacentSides = 4;
