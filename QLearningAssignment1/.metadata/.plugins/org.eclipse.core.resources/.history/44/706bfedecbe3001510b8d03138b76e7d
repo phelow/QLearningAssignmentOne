@@ -123,7 +123,7 @@ public class Qlearning {
     	
     	
     	if(contained){
-    		return (highestX - lowestX <= 1 && highestY-lowestY <= 1);
+    		return (highestX - lowestX <= 2 && highestY-lowestY <= 2);
     	}
     	visited.add(newPair);
     	for(int x = 0; x < xWidth; x++){
@@ -132,8 +132,8 @@ public class Qlearning {
     		}
     		System.out.println("");
     	}
-    	if(newPair.x < 0 || newPair.y < 0 || newPair.x >= xWidth || newPair.y >= yWidth || !(highestX - lowestX <= 1 && highestY-lowestY <= 1)){
-    		return (highestX - lowestX <= 1 && highestY-lowestY <= 1);
+    	if(newPair.x < 0 || newPair.y < 0 || newPair.x >= xWidth || newPair.y >= yWidth || !(highestX - lowestX <= 2 && highestY-lowestY <= 2)){
+    		return (highestX - lowestX <= 2 && highestY-lowestY <= 2);
     	}
     	else{
     		System.out.println("newPair.x:" + newPair.x + " newPair.y:" + newPair.y);
@@ -141,7 +141,7 @@ public class Qlearning {
 					+ highestY + " lowestY:" + lowestY + " m_disconnectedCells[x][y]:" + m_disconnectedCells[newPair.x][newPair.y]);
     	}
     	if(m_disconnectedCells[newPair.x][newPair.y] == false){
-    		return (highestX - lowestX <= 1 && highestY-lowestY <= 1);
+    		return (highestX - lowestX <= 2 && highestY-lowestY <= 2);
     	}
     	
     	
@@ -164,24 +164,8 @@ public class Qlearning {
     	Pair top = new Pair(newPair);
     	top.y = top.y + 1;
     	
-    	Pair topleft = new Pair(newPair);
-    	topleft.y = topleft.y + 1;
-    	topleft.x = topleft.x - 1;
-    	
-    	Pair topright = new Pair(newPair);
-    	topright.y = topright.y + 1;
-    	topright.y = topright.x + 1;
-    	
     	Pair bot = new Pair(newPair);
     	bot.y = bot.y -1;
-    	
-    	Pair botleft = new Pair(newPair);
-    	botleft.y = botleft.y -1;
-    	botleft.x = botleft.x -1;
-    	
-    	Pair botright = new Pair(newPair);
-    	botright.y = botright.y -1;
-    	botright.x = botright.x + 1;
     	
     	Pair left = new Pair(newPair);
     	left.x = left.x - 1;
@@ -190,11 +174,7 @@ public class Qlearning {
     	right.x = right.x  +1;
     	
     	return GapExceeds(top,highestX,lowestX,highestY,lowestY,visited) && 
-    			GapExceeds(topright,highestX,lowestX,highestY,lowestY,visited) && 
-    			GapExceeds(topleft,highestX,lowestX,highestY,lowestY,visited) && 
     			GapExceeds(bot,highestX,lowestX,highestY,lowestY,visited) && 
-    			GapExceeds(botleft,highestX,lowestX,highestY,lowestY,visited) && 
-    			GapExceeds(botright,highestX,lowestX,highestY,lowestY,visited) && 
     			GapExceeds(left,highestX,lowestX,highestY,lowestY,visited) && 
     			GapExceeds(right,highestX,lowestX,highestY,lowestY,visited);
     }
@@ -237,7 +217,6 @@ public class Qlearning {
     			if(!GapExceeds(newPair,x,y,x,y,empty)){
     				m_disconnectedCells[newPair.x][newPair.y] = false;
     			}
-    			System.out.println(m_disconnectedCells[newPair.x][newPair.y]);
     			
     		}
     	}

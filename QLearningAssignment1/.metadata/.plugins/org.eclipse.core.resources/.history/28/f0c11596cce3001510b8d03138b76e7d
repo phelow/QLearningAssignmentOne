@@ -164,24 +164,8 @@ public class Qlearning {
     	Pair top = new Pair(newPair);
     	top.y = top.y + 1;
     	
-    	Pair topleft = new Pair(newPair);
-    	topleft.y = topleft.y + 1;
-    	topleft.x = topleft.x - 1;
-    	
-    	Pair topright = new Pair(newPair);
-    	topright.y = topright.y + 1;
-    	topright.y = topright.x + 1;
-    	
     	Pair bot = new Pair(newPair);
     	bot.y = bot.y -1;
-    	
-    	Pair botleft = new Pair(newPair);
-    	botleft.y = botleft.y -1;
-    	botleft.x = botleft.x -1;
-    	
-    	Pair botright = new Pair(newPair);
-    	botright.y = botright.y -1;
-    	botright.x = botright.x + 1;
     	
     	Pair left = new Pair(newPair);
     	left.x = left.x - 1;
@@ -190,11 +174,7 @@ public class Qlearning {
     	right.x = right.x  +1;
     	
     	return GapExceeds(top,highestX,lowestX,highestY,lowestY,visited) && 
-    			GapExceeds(topright,highestX,lowestX,highestY,lowestY,visited) && 
-    			GapExceeds(topleft,highestX,lowestX,highestY,lowestY,visited) && 
     			GapExceeds(bot,highestX,lowestX,highestY,lowestY,visited) && 
-    			GapExceeds(botleft,highestX,lowestX,highestY,lowestY,visited) && 
-    			GapExceeds(botright,highestX,lowestX,highestY,lowestY,visited) && 
     			GapExceeds(left,highestX,lowestX,highestY,lowestY,visited) && 
     			GapExceeds(right,highestX,lowestX,highestY,lowestY,visited);
     }
