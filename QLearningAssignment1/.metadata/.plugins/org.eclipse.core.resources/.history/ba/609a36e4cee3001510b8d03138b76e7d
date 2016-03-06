@@ -220,7 +220,7 @@ public class Qlearning {
     			ArrayList<Pair> empty = new ArrayList<Pair>();
     			newPair.x = x;
     			newPair.y = y;
-    			if(random.nextInt(100) > 50 && newPair.x != m_goalStateX && newPair.y != m_goalStateY){
+    			if(random.nextInt(100) > 50){
 	    			m_disconnectedCells[newPair.x][newPair.y] = true;
 	    			if(!GapExceeds(newPair,x,y,x,y,empty)){
 	    				m_disconnectedCells[newPair.x][newPair.y] = false;
@@ -244,17 +244,17 @@ public class Qlearning {
     		for(int y = 0; y < yWidth; y++){
 
     			int numConnections = 0;
-    			if(!(y+1 <0 || y+1 >= yWidth) && m_disconnectedCells[x][y+1] == false){
+    			if(!(y+1 <0 || y+1 >= yWidth)){
     				numConnections++;
     			}
-    			if(!(x+1 <0 || x+1 >= xWidth) && m_disconnectedCells[x+1][y] == false){
+    			if(!(x+1 <0 || x+1 >= yWidth)){
     				numConnections++;
     			}
     			
-    			if(!(y-1 <0 || y-1 >= yWidth) && m_disconnectedCells[x][y-1] == false){
+    			if(!(y-1 <0 || y-1 >= yWidth)){
     				numConnections++;
     			}
-    			if(!(x-1 <0 || x-1 >= xWidth) && m_disconnectedCells[x-1][y] == false){
+    			if(!(x-1 <0 || x-1 >= yWidth)){
     				numConnections++;
     			}
     			
@@ -263,7 +263,7 @@ public class Qlearning {
     			
     			int pos = 0;
     			
-    			if(!(y+1 <0 || y+1 >= yWidth) && m_disconnectedCells[x][y+1] == false){
+    			if(!(y+1 <0 || y+1 >= yWidth)){
     				Pair p = new Pair();
 					p.x = x;
 					p.y = y+1;
@@ -274,7 +274,7 @@ public class Qlearning {
 					
 					pos++;
     			}
-    			if(!(x+1 <0 || x+1 >= xWidth) && m_disconnectedCells[x+1][y] == false){
+    			if(!(x+1 <0 || x+1 >= xWidth)){
     				Pair p = new Pair();
 					p.x = x+1;
 					p.y = y;
@@ -286,7 +286,7 @@ public class Qlearning {
 					pos++;
     			}
     			
-    			if(!(y-1 <0 || y-1 >= yWidth) && m_disconnectedCells[x][y-1] == false){
+    			if(!(y-1 <0 || y-1 >= yWidth)){
     				Pair p = new Pair();
 					p.x = x;
 					p.y = y-1;
@@ -297,7 +297,7 @@ public class Qlearning {
 					
 					pos++;
     			}
-    			if(!(x-1 <0 || x-1 >= xWidth) && m_disconnectedCells[x-1][y] == false){
+    			if(!(x-1 <0 || x-1 >= xWidth)){
     				Pair p = new Pair();
 					p.x = x-1;
 					p.y = y;

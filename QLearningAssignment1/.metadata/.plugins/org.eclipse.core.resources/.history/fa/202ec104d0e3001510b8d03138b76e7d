@@ -220,7 +220,7 @@ public class Qlearning {
     			ArrayList<Pair> empty = new ArrayList<Pair>();
     			newPair.x = x;
     			newPair.y = y;
-    			if(random.nextInt(100) > 50 && newPair.x != m_goalStateX && newPair.y != m_goalStateY){
+    			if(random.nextInt(100) > 50){
 	    			m_disconnectedCells[newPair.x][newPair.y] = true;
 	    			if(!GapExceeds(newPair,x,y,x,y,empty)){
 	    				m_disconnectedCells[newPair.x][newPair.y] = false;
