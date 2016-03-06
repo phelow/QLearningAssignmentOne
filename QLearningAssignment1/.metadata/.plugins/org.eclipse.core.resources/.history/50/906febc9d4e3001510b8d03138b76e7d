@@ -569,11 +569,8 @@ public class Qlearning {
     	//show which each cell will output to
     	for(int x = 0; x < xWidth; x++){
     		for(int y = 0; y < yWidth; y++){
-    			Pair pos = new Pair();
-    			pos.x = x;
-    			pos.y = y;
-    			Pair p = policy(pos,false);
-    			System.out.println(stateNames[x][y] + " goes to " + p.x + " " + p.y);
+    			    			
+    			System.out.println(stateNames[xWidth][yWidth] + " goes to " + Policy(x,y,false));
     		}
     	}
     	//show ten traversals of the graph
@@ -585,12 +582,7 @@ public class Qlearning {
     		Pair sp = new Pair();
     		sp.x = random.nextInt(xWidth);
     		sp.y = random.nextInt(yWidth);
-    		int steps = 0;
-    		do{
-    			sp = policy(sp,false);
-    			System.out.println(steps + ": " + sp.x + " " + sp.y);
-    			steps++;
-    		}while(!(sp.x == m_goalStateX && sp.y == m_goalStateY) && steps < xWidth*yWidth);
+    		
     		
     	}
     }

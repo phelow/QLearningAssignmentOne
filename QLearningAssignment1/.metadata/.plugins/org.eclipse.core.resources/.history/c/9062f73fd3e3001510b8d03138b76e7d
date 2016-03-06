@@ -19,7 +19,7 @@ public class Qlearning {
     // path finding
     final double alpha = 0.1;
     final double gamma = 0.9;
-    final int epsilon = 20;
+    final int epsilon = 10;
     static double showalpha = 0.1;
     static double showgamma = 0.9;
     static int showepsilon = 10;
@@ -373,29 +373,19 @@ public class Qlearning {
                 Pair[] actionsFromState = actions[state.x][state.y];
                 if(actionsFromState.length > 0)
                 {
-                	 int rangemax = 50;
-                     int rangemin = 0;
-                     Pair action;
-                     if (random.nextInt(rangemax)+rangemin < epsilon)
-                     {
-                     	int x = random.nextInt(actionsFromState.length);
-                     	action = actionsFromState[x];
-                     }
-                     else
-                     {
-		            	
-		                // Selection strategy is random in this example
-		                int index = random.nextInt(actionsFromState.length);
-		                action = actionsFromState[index];
-		 
-                     }
-		                 
+                	
+	                // Selection strategy is random in this example
+	                int index = random.nextInt(actionsFromState.length);
+	                Pair action = actionsFromState[index];
+	 
+	                
+	                 
 	                // Action outcome is set to deterministic in this example
 	                // Transition probability is 1
 	                Pair nextState = action; // data structure
 	                // Using this possible action, consider to go to the next state
 	                double q = Q(state, nextState);
-	            	//System.out.println(state.x + " " + state.y + " " + action.x + " " + action.y);
+                	//System.out.println(state.x + " " + state.y + " " + action.x + " " + action.y);
 	                double maxQ = maxQ(nextState);
 	                int r = R(state, nextState);
 	                
@@ -434,21 +424,30 @@ public class Qlearning {
     }
  
     // get policy from state
-    Pair policy(Pair state, boolean epsilonEnabled) {
+    Pair policy(Pair state, boolean epsilonEnabled(true)) {
         Pair[] actionsFromState = actions[state.x][state.y];
         double maxValue = Double.MIN_VALUE;
         Pair policyGotoState = state; // default goto self if not found
         
-        for (int i = 0; i < actionsFromState.length; i++) {
-        	Pair nextState = actionsFromState[i];
-            double value = Q[state.x][state.y][nextState.x][nextState.y];
- 
-            if (value > maxValue) {
-                maxValue = value;
-                policyGotoState = nextState;
-            }
+        int rangemax = 50;
+        int rangemin = 0;
+        if (random.nextInt(rangemax)+rangemin < epsilon)
+        {
+        	int i = random.nextInt(actionsFromState.length);
+        	policyGotoState = actionsFromState[i];
         }
-        
+        else
+        {
+	        for (int i = 0; i < actionsFromState.length; i++) {
+	        	Pair nextState = actionsFromState[i];
+	            double value = Q[state.x][state.y][nextState.x][nextState.y];
+	 
+	            if (value > maxValue) {
+	                maxValue = value;
+	                policyGotoState = nextState;
+	            }
+	        }
+        }
         return policyGotoState;
     }
  
@@ -564,20 +563,6 @@ public class Qlearning {
     // policy is maxQ(states)
     void showPolicy(BufferedWriter bw) throws IOException {
     	System.out.println("Starting movement test suite.");
-
-    	
-    	//show which each cell will output to
-    	for(int x = 0; x < xWidth; x++){
-    		for(int y = 0; y < yWidth; y++){
-    			Pair pos = new Pair();
-    			pos.x = x;
-    			pos.y = y;
-    			Pair p = policy(pos,false);
-    			System.out.println(stateNames[x][y] + " goes to " + p.x + " " + p.y);
-    		}
-    	}
-    	//show ten traversals of the graph
-    	
     	for(int i = 0; i < 10; i++){
     		System.out.println("Test no. " + i);
     		//Pick a random starting point
@@ -585,12 +570,7 @@ public class Qlearning {
     		Pair sp = new Pair();
     		sp.x = random.nextInt(xWidth);
     		sp.y = random.nextInt(yWidth);
-    		int steps = 0;
-    		do{
-    			sp = policy(sp,false);
-    			System.out.println(steps + ": " + sp.x + " " + sp.y);
-    			steps++;
-    		}while(!(sp.x == m_goalStateX && sp.y == m_goalStateY) && steps < xWidth*yWidth);
+    		
     		
     	}
     }

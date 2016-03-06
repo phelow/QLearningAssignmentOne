@@ -586,11 +586,10 @@ public class Qlearning {
     		sp.x = random.nextInt(xWidth);
     		sp.y = random.nextInt(yWidth);
     		int steps = 0;
-    		do{
+    		while(sp.x != m_goalStateX && sp.y != m_goalStateY && steps < xWidth*yWidth){
     			sp = policy(sp,false);
-    			System.out.println(steps + ": " + sp.x + " " + sp.y);
     			steps++;
-    		}while(!(sp.x == m_goalStateX && sp.y == m_goalStateY) && steps < xWidth*yWidth);
+    		}
     		
     	}
     }
