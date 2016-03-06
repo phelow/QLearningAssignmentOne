@@ -275,7 +275,7 @@ public class Qlearning {
     public static void main(String[] args) throws IOException {
     	// If file already exists, will overwrite file
         // Be sure to change file after every test
-        String path = "E:\\Development\\SchoolWork Spring 2016\\Learning and Advanced Game AI\\QLearning\\Output\\test.txt";
+        String path = "E:\Development\SchoolWork Spring 2016\Learning and Advanced Game AI\QLearning\Output\test.txt";
         BufferedWriter bufferedwriter = new BufferedWriter(new FileWriter(new File(path)));
         bufferedwriter.write("Alpha:   " + showalpha); bufferedwriter.newLine();
         bufferedwriter.write("Gamma:   " + showgamma); bufferedwriter.newLine(); 

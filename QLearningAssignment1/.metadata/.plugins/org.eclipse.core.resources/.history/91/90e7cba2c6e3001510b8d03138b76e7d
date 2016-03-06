@@ -1,28 +1,19 @@
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
-import java.nio.file.Paths;
-import java.io.*;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.BufferedWriter;
  
 /**
- * Will and Olivia
+ * @author Kunuk Nykjaer
  */
 
 public class Qlearning {
-    final DecimalFormat df = new DecimalFormat("0.0");
+    final DecimalFormat df = new DecimalFormat("#.##");
  
     private Random random = new Random();
     
     // path finding
     final double alpha = 0.1;
     final double gamma = 0.9;
-    final int epsilon = 0;
-    static double showalpha = 0.1;
-    static double showgamma = 0.9;
-    static int showepsilon = 0;
  
  
 // states A,B,C,D,E,F
@@ -272,29 +263,17 @@ public class Qlearning {
     	
     }
  
-    public static void main(String[] args) throws IOException {
-    	// If file already exists, will overwrite file
-        // Be sure to change file after every test
-        String path = "E:\\Development\\SchoolWork Spring 2016\\Learning and Advanced Game AI\\QLearning\\Output\\test.txt";
-        BufferedWriter bufferedwriter = new BufferedWriter(new FileWriter(new File(path)));
-        bufferedwriter.write("Alpha:   " + showalpha); bufferedwriter.newLine();
-        bufferedwriter.write("Gamma:   " + showgamma); bufferedwriter.newLine(); 
-        bufferedwriter.write("Epsilon: " + showepsilon); bufferedwriter.newLine(); bufferedwriter.newLine();
-
+    public static void main(String[] args) {
         long BEGIN = System.currentTimeMillis();
 
         Qlearning obj = new Qlearning();
         
         obj.run();
-        obj.printResult(bufferedwriter);
-        obj.showPolicy(bufferedwriter);
+        obj.printResult();
+        obj.showPolicy();
  
         long END = System.currentTimeMillis();
         System.out.println("Time: " + (END - BEGIN) / 1000.0 + " sec.");
-        bufferedwriter.newLine();
-        bufferedwriter.write("Time: " + (END-BEGIN) / 1000.0 + "sec.");
-        bufferedwriter.newLine();
-        bufferedwriter.close(); 
     }
  
     void run() {
@@ -407,104 +386,24 @@ public class Qlearning {
         return R[s.x][s.y][a.x][a.y];
     }
  
-    void printResult(BufferedWriter bw) throws IOException {
-        System.out.println("Print result");
-        bw.write("Results:");
-        bw.newLine(); bw.newLine();
-        ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
-        
+    void printResult() {
+    	//TODO: redo this function
         for (int i = 0; i < stateNames.length; i++) {
             for (int j = 0; j < stateNames[i].length; j++) {
                 System.out.print("out from " + stateNames[i][j] + ":  ");
-                
-                ArrayList<String> column = new ArrayList<String>();
-                column.add(stateNames[i][j]);
-                
                 for(int k = 0; k < Q[i][j].length; k++){
                 	for(int l = 0; l < Q[i][j][k].length; l++){
-                		System.out.print(df.format(Q[i][j][k][l]) + " ");
-                		String reward = String.valueOf(Q[i][j][k][l]);
-                		column.add(reward);
+                        System.out.print(df.format(Q[i][j][k][l]) + " ");
+                		
                 	}
                 }
-                results.add(column);
-                	
-            System.out.println();
             }
+            System.out.println();
         }
-
-        // *** Text File Visualization: Matrix
-        bw.write("Matrix:"); bw.newLine();
-        bw.write("      ");
-        for (int x = 0; x < results.size(); x++)
-        {
-        	bw.write("  " + results.get(x).get(0) + "  ");
-        }
-        bw.newLine();
-        bw.write("      ");
-        for (int y = 0; y < results.size();y++)
-        {
-        	bw.write("-------");
-        }
-        bw.newLine();
-
-        for(int j = 0; j < results.size(); j++)
-        {
-        	int count = 0;
-        	while (count<results.size()+1)
-        	{
-        		String temp = results.get(j).get(count);
-        		int size = temp.length();
-        		if (count == 0)
-        		{
-        			if (size == 3)
-        			{
-        				bw.write(" " + temp + " |");
-        			}
-        			else if (size == 2)
-        			{
-        				bw.write("  " + temp + " |");
-        			}
-        			else
-        			{
-        				bw.write("  " + temp + "  |");
-        			}
-        		}
-        		else
-        		{
-            		double val = Double.parseDouble(temp);
-            		String a = df.format(val);
-            		int size1 = a.length();
-        			if (size1 == 1)
-        			{
-        				bw.write("   " + df.format(Double.parseDouble(temp)) + "   ");
-        			}
-        			else if (size1 == 2)
-        			{
-        				bw.write("  " + df.format(Double.parseDouble(temp)) + "   ");
-        			}
-        			else if (size1 == 3)
-        			{
-        				bw.write("  " + df.format(Double.parseDouble(temp)) + "  "); 
-        			}
-        			else if (size1 == 4)
-        			{
-        				bw.write(" " + df.format(Double.parseDouble(temp)) + "  "); 
-        			}
-        			else if (size1 == 5)
-        			{
-        				bw.write(" " + df.format(Double.parseDouble(temp)) + " ");
-        			}
-        		}
-        		count++;
-        	}
-        	bw.newLine();
-        }
-        // END MATRIX HERE
     }
  
     // policy is maxQ(states)
-    void showPolicy(BufferedWriter bw) throws IOException {
+    void showPolicy() {
     	//TODO: redo this function
         System.out.println("\nshowPolicy Has been deleted");  
     }
