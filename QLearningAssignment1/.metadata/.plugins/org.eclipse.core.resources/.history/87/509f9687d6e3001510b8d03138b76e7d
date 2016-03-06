@@ -113,6 +113,7 @@ public class Qlearning {
     
     public boolean GapExceeds(Pair newPair, int highestX, int lowestX, int highestY, int lowestY, ArrayList<Pair> visited){
     	boolean contained = false;
+    	System.out.println("test");
     	
     	for(int i = 0; i < visited.size(); i++){
     		if(visited.get(i).IsSame(newPair)){
@@ -232,16 +233,7 @@ public class Qlearning {
     	
     	for(int x = 0; x < xWidth; x++){
     		for (int y = 0; y < yWidth; y++){
-    			String letter = "U";
-    			
-    			if(m_disconnectedCells[x][y] == true){
-    				letter = "B";
-    			}
-    			if(x == m_goalStateX && y == m_goalStateY){
-    				letter = "G";
-    			}
-    			
-    			System.out.print(letter + "");
+    			System.out.print(m_disconnectedCells[x][y] + "");
     		}
     		System.out.println("");
     	}

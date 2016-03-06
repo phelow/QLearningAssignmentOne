@@ -237,11 +237,8 @@ public class Qlearning {
     			if(m_disconnectedCells[x][y] == true){
     				letter = "B";
     			}
-    			if(x == m_goalStateX && y == m_goalStateY){
-    				letter = "G";
-    			}
     			
-    			System.out.print(letter + "");
+    			System.out.print(lette + "");
     		}
     		System.out.println("");
     	}

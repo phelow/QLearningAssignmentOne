@@ -241,7 +241,7 @@ public class Qlearning {
     				letter = "G";
     			}
     			
-    			System.out.print(letter + "");
+    			System.out.print(lette + "");
     		}
     		System.out.println("");
     	}

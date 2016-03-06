@@ -232,19 +232,11 @@ public class Qlearning {
     	
     	for(int x = 0; x < xWidth; x++){
     		for (int y = 0; y < yWidth; y++){
-    			String letter = "U";
-    			
-    			if(m_disconnectedCells[x][y] == true){
-    				letter = "B";
-    			}
-    			if(x == m_goalStateX && y == m_goalStateY){
-    				letter = "G";
-    			}
-    			
-    			System.out.print(letter + "");
+    			System.out.print(m_disconnectedCells[x][y] + "");
     		}
     		System.out.println("");
     	}
+    	System.out.println("test");
     	
     	m_goalStateX = random.nextInt(xWidth);
     	m_goalStateY = random.nextInt(yWidth);
