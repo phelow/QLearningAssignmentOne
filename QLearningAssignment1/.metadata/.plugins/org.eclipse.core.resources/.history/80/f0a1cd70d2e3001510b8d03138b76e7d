@@ -22,7 +22,7 @@ public class Qlearning {
     final int epsilon = 10;
     static double showalpha = 0.1;
     static double showgamma = 0.9;
-    static int showepsilon = 10;
+    static int showepsilon = 0;
  
  
 // states A,B,C,D,E,F

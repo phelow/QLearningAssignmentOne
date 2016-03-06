@@ -19,10 +19,10 @@ public class Qlearning {
     // path finding
     final double alpha = 0.1;
     final double gamma = 0.9;
-    final int epsilon = 10;
+    final int epsilon = 0;
     static double showalpha = 0.1;
     static double showgamma = 0.9;
-    static int showepsilon = 10;
+    static int showepsilon = 0;
  
  
 // states A,B,C,D,E,F
