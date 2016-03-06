@@ -64,9 +64,9 @@ public class Qlearning {
     //Stored random number seeds
     final long seedZero = 3;
     
-    final int xWidth = 20;
-    final int yWidth = 20;
-    final int statesCount = 400;
+    final int xWidth = 4;
+    final int yWidth = 4;
+    final int statesCount = 100;
     
     final int c_maxAdjacentSides = 4;
     
